@@ -1,14 +1,15 @@
-import sys,base64
+import sys,base64,time
 from cryptography.fernet import Fernet
 f=Fernet
-intr='''----------------------
-**tsociety file encrypter**
+intr='''---------------------------
+--Tsociety file encrypter--
 1)encrypt
 2)decrypt
 99)exit
-----------------------
+---------------------------
 >'''
 def key():
+    print('')
     key=input('password>')
     keyc=len(key)
     if keyc<=7:
@@ -68,26 +69,52 @@ def key():
     key=base64.urlsafe_b64encode(bytes(key,'utf-8'))
     return(key)
 def enc(key):
+    print('')
     fi=input('filename>')
-    print('***encrypting file...***')
-    fid=open(fi,'rb').read()
-    en=f(key).encrypt(fid)
+    print('')
+    print('   ***reading file data...***')
+    fd=open(fi,'rb').read()
+    time.sleep(0.2)
+    print('')
+    print('***initializing Fernet key...***')
+    time.sleep(0.2)
+    print('')
+    print('   ***encrypting file data***')
+    print('')
+    en=f(key).encrypt(fd)
     open(fi,'wb').write(en)
-    print('***file encrypted***')
+    print('      ***file encrypted***')
+    print('')
 def dec(key):
+    print('')
     fi=input('filename>')
-    print('***decrypting file...***')
-    fid=open(fi,'rb').read()
-    de=f(key).decrypt(fid)
+    print('')
+    print('   ***reading file data...***')
+    fd=open(fi,'rb').read()
+    time.sleep(0.2)
+    print('')
+    print('***initializing Fernet key...***')
+    time.sleep(0.2)
+    print('')
+    print('    ***decrypting data...***')
+    print('')
+    de=f(key).decrypt(fd)
     open(fi,'wb').write(de)
-    print('***file decrypted***')
+    print('      ***file decrypted***')
+    print('')
 while True:
     c=input(intr)
     if c=='1':
         enc(key())
+    elif c=='encrypt':
+        enc(key())
     elif c=='2':
         dec(key())
+    elif c=='decrypt':
+        dec(key())
     elif c=='99':
+        break
+    elif c=='exit':
         break
     else:
         print('input a number shown')
