@@ -1,4 +1,4 @@
-import sys,base64,time,hashlib,os
+import sys,base64,time,hashlib,os,random
 from cryptography.fernet import Fernet
 #variables
 f=Fernet
@@ -12,15 +12,19 @@ intr='''---------------------------
 #gets input to turn into 32 url safe characters and convert it into md5 then byte like objects to use as fernet kney
 def key():
     print('')
-    key=input('password>')
+    n1=str(random.randint(1,10))
+    n2=str(random.randint(1,10))
+    print('char: %s'%n1+n2)
+    key=input('''enter password with last few characters being the ones shown
+pass>''')
     keyc=len(key)
-    if keyc<=7:
-        print('password must have at least 8 characters')
+    if keyc<=9:
+        print('password must have at least 9 characters')
         sys.exit()
-    elif keyc>=33:
-        print('password must be less than 33 characters')
+    elif keyc>=35:
+        print('password must be less than 35 characters')
         sys.exit()
-    key=hashlib.md5(str(key).encode())
+    key=hashlib.md5(str(key.replace(n1+n2,'')).encode())
     key=key.hexdigest()
     print(str(key))
     key=base64.urlsafe_b64encode(bytes(str(key),'utf-8'))
@@ -34,7 +38,6 @@ def enc(key):
     os.system('zip enc -r %s'%fi)
     fd=open('enc.zip','rb').read()
     time.sleep(0.3)
-    print('')
     print('***initializing Fernet key...***')
     time.sleep(0.4)
     print('')
@@ -59,14 +62,12 @@ def dec(key):
     time.sleep(0.35)
     print('')
     print('    ***decrypting data...***')
-    print('')
     de=f(key).decrypt(fd)
     open(fi.replace('.enc','.zip'),'wb').write(de)
     os.system('unzip %s'%fi.replace('.enc',''))
     print('      ***file decrypted***')
     os.system('rm -rf %s'%fi.replace('.enc','.zip'))
     os.system('rm -rf %s'%fi)
-    print('')
 #run
 while True:
     c=input(intr)
