@@ -2,8 +2,7 @@ import sys,base64,time,hashlib,os,random
 from cryptography.fernet import Fernet
 #variables
 f=Fernet
-intr='''---------------------------
---Tsociety file encrypter--
+intr='''--Tsociety file encrypter--
 1)encrypt
 2)decrypt
 99)exit
@@ -26,7 +25,6 @@ pass>''')
         sys.exit()
     key=hashlib.md5(str(key.replace(n1+n2,'')).encode())
     key=key.hexdigest()
-    print(str(key))
     key=base64.urlsafe_b64encode(bytes(str(key),'utf-8'))
     return(key)
 #uses the given key to encrypt a file with the given filename
@@ -35,11 +33,11 @@ def enc(key):
     fi=input('filename>')
     print('')
     print('   ***reading file data...***')
+    print('')
     os.system('zip enc -r %s'%fi)
     fd=open('enc.zip','rb').read()
-    time.sleep(0.3)
     print('***initializing Fernet key...***')
-    time.sleep(0.4)
+    time.sleep(0.1)
     print('')
     os.system('rm -rf %s'%fi)
     print('   ***encrypting file data***')
@@ -62,6 +60,7 @@ def dec(key):
     time.sleep(0.35)
     print('')
     print('    ***decrypting data...***')
+    print('')
     de=f(key).decrypt(fd)
     open(fi.replace('.enc','.zip'),'wb').write(de)
     os.system('unzip %s'%fi.replace('.enc',''))
