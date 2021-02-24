@@ -1,7 +1,6 @@
 import sys,base64,time,hashlib,os,random
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet as f
 #variables
-f=Fernet
 intr='''--Tsociety file encrypter--
 1)encrypt
 2)decrypt
