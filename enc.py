@@ -20,9 +20,6 @@ pass>''')
     if keyc<9:
         print('password must have at least 9 characters')
         sys.exit()
-    elif keyc>35:
-        print('password must be less than 35 characters')
-        sys.exit()
     elif key=='themobilehacker': #self-destruct password
         key='false'
         return(key)
