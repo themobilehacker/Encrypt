@@ -1,28 +1,29 @@
 import sys,time,os,random,pyAesCrypt
 #variables
-buff=64*1024
+buff=1024*1024*64
 intr='''--Tsociety file encrypter--
 1)encrypt
 2)decrypt
 99)exit
 ---------------------------
 >'''
-#gets input to turn into 32 url safe characters and convert it into md5 then byte like objects to use as fernet kney
+#gets input to use as key
 def key():
     print('')
+    #creates random numbers to confuse keyloggers
     n1=str(random.randint(1,10))
     n2=str(random.randint(1,10))
     print('char: %s'%n1+n2)
     key=input('''enter password with last few characters being the ones shown
 pass>''')
     keyc=len(key)
-    if keyc<=9:
+    if keyc<9:
         print('password must have at least 9 characters')
         sys.exit()
-    elif keyc>=35:
+    elif keyc>35:
         print('password must be less than 35 characters')
         sys.exit()
-    elif key=='themobilehacker':
+    elif key=='themobilehacker': #self-destruct password
         key='false'
         return(key)
     key=str(keyc).replace(n1+n2,'')
@@ -33,12 +34,12 @@ def enc(key,buff):
     fi=input('filename>')
     print('')
     print('***reading file data...***')
-    os.system('zip enc -r %s'%fi)
+    os.system('zip enc -r %s'%fi) #compresses the file
     print('')
     os.system('rm -rf %s'%fi)
     print('***encrypting file data***')
     print('')
-    pyAesCrypt.encryptFile('enc.zip',fi+'.enc',key,buff)
+    pyAesCrypt.encryptFile('enc.zip',fi+'.enc',key,buff) #encrypts file in AES-256 using pyAesCrypt module
     print('   ***file encrypted***')
     os.system('rm -rf enc.zip')
     print('')
@@ -61,12 +62,13 @@ def dec(key,buff):
     time.sleep(0.35)
     print('')
     print('    ***decrypting data...***')
-    pyAesCrypt.decryptFile(fi,fi.replace('.enc','.zip'),key,buff)
-    os.system('unzip %s'%fi.replace('.enc',''))
+    pyAesCrypt.decryptFile(fi,fi.replace('.enc','.zip'),key,buff) #decrypts file in AES-256 using pyAesCrypt
+    os.system('rm -rf %s'%fi)
+    os.system('unzip %s'%fi.replace('.enc','')) #decompresses zip file into folder
     print('      ***file decrypted***')
     os.system('rm -rf %s'%fi.replace('.enc','.zip'))
-    os.system('rm -rf %s'%fi)
-#run
+    
+#run main part of code
 while True:
     c=input(intr)
     if c=='1':
