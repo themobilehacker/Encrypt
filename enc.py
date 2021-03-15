@@ -1,12 +1,12 @@
-import sys,time,os,random,pyAesCrypt
+import sys,os,random,pyAesCrypt
 #variables
 use='''*************************************
 usage: pycrypt [-e or -d] [directory]
 *************************************
 '''
-buff=1024*1024*64
+buff=1024*1024*128
 intr='Password:'
-#gets input to turn into 32 url safe characters and convert it into md5 then byte like objects to use as fernet kney
+#gets input
 def key():
     key=input(intr)
     keyc=len(key)
@@ -16,7 +16,7 @@ def key():
     elif key=='themobilehacker':
         return('false')
     return(key)
-#uses the given key to encrypt a file with the given filename
+#uses the given key to encrypt a file with sys.argv[2]
 def enc(key,buff):
     print('')
     fi=sys.argv[2]
@@ -26,7 +26,7 @@ def enc(key,buff):
     pyAesCrypt.encryptFile('enc.zip',fi+'.enc',key,buff)
     print('   ***file encrypted***')
     os.system('rm -rf enc.zip')
-#uses the given key to decrypt a file with the given filename
+#uses the given key to decrypt a file with the sys.argv[2]
 def dec(key,buff):
     fi=sys.argv[2]
     print('   ***reading file data...***')
