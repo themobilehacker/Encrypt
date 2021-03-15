@@ -2,9 +2,8 @@ import sys,os,random,pyAesCrypt
 #variables
 use='''*************************************
 usage: pycrypt [-e or -d] [directory]
-*************************************
-'''
-buff=1024*1024*128
+*************************************'''
+buff=1024*1024*64
 intr='Password:'
 #gets input
 def key():
@@ -16,7 +15,7 @@ def key():
     elif key=='themobilehacker':
         return('false')
     return(key)
-#uses the given key to encrypt a file with sys.argv[2]
+#uses the given key to encrypt a file with sys.argv
 def enc(key,buff):
     print('')
     fi=sys.argv[2]
@@ -26,7 +25,7 @@ def enc(key,buff):
     pyAesCrypt.encryptFile('enc.zip',fi+'.enc',key,buff)
     print('   ***file encrypted***')
     os.system('rm -rf enc.zip')
-#uses the given key to decrypt a file with the sys.argv[2]
+#uses the given key to decrypt a file with sys.argv
 def dec(key,buff):
     fi=sys.argv[2]
     print('   ***reading file data...***')
@@ -41,6 +40,9 @@ def dec(key,buff):
     os.system('rm -rf %s'%fi.replace('.enc','.zip'))
     os.system('rm -rf %s'%fi)
 #run
+if len(sys.argv)<3:  
+    print(use)
+    sys.exit()
 c=sys.argv[1]
 if c=='-e':
     enc(key(),buff)
@@ -50,7 +52,7 @@ elif c=='-d':
     dec(key(),buff)
 elif c=='d':
     dec(key(),buff)
-elif len(c)<2:
-    print(use)
 else:
     print(use)
+
+
