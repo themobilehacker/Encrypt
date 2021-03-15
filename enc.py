@@ -53,4 +53,4 @@ elif c=='d':
 elif len(c)<2:
     print(use)
 else:
-    print('input a number shown')
+    print(use)
