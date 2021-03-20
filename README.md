@@ -6,12 +6,10 @@ pyAesCrypt,sys,os,random
 
 # Installation
 type in:
-"""
-cd encrypt
-"""
-chmod +x install.sh
-./install.sh
-'''
+* cd encrypt
+* chmod +x install.sh
+* ./install.sh
+
 
 # Features 
 strong AES-256 encryption,CLI interface by typing in 'pycrypt -e(encrypt) [directory]' or 'pycrypt -d(decrypt) [directory],
