@@ -6,8 +6,9 @@ pyAesCrypt,sys,os,random
 
 # Installation
 type in:
-'''
+"""
 cd encrypt
+"""
 chmod +x install.sh
 ./install.sh
 '''
