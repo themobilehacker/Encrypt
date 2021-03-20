@@ -1,9 +1,17 @@
 # Encrypt
 A password protected file encryptor in python.
 
-Modules:
-pyAesCrypt,sys,time,os,random
+# Modules
+pyAesCrypt,sys,os,random
 
-Features: 
-strong AES-256 encryption,CLI interface by running [install.sh] file and typing in [pycrypt] afterwards,
+# Installation
+type in:
+'''
+cd encrypt
+chmod +x install.sh
+./install.sh
+'''
+
+# Features 
+strong AES-256 encryption,CLI interface by typing in 'pycrypt -e(encrypt) [directory]' or 'pycrypt -d(decrypt) [directory],
 Self destruct password (default is 'themobilehacker').
